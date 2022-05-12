@@ -1,0 +1,139 @@
+<h1>
+<a id="user-content-ynab-api-starter-kit" class="anchor" href="#ynab-api-starter-kit" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>YNAB API Starter Kit</h1>
+<p>Do you want to build a web app with the <a href="https://api.youneedabudget.com/" rel="nofollow">YNAB API</a>, but are not sure how to get started?</p>
+<p>Try this YNAB API Starter Kit!</p>
+<p>Without <strong>any</strong> prior knowledge, it allows you to build:</p>
+<ul>
+<li>a web app that uses JavaScript and the <a href="https://vuejs.org/" rel="nofollow">Vue.js</a> framework for its frontend,</li>
+<li>makes requests to the YNAB API through OAuth,</li>
+<li>and is entirely compiled on GitHub, and hosted on GitHub Pages!</li>
+</ul>
+<p><a href="https://api.youneedabudget.com/" rel="nofollow"><img src="./public/works_with_ynab.svg" alt="Works with YNAB" style="max-width:100%;"></a></p>
+<h2>
+<a id="user-content-live-demo" class="anchor" href="#live-demo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Live Demo</h2>
+<p>The starter project invites a user to authorize YNAB to share information with the project, provides a choice of budget, then displays all the transactions. It's probably not very useful, but it demonstrates several key features involved in building a YNAB web app.</p>
+<p>View a <a href="https://ynab.github.io/ynab-api-starter-kit/" rel="nofollow">live demo</a> of what this project will start off looking like or take a look below.</p>
+<p><a href="https://user-images.githubusercontent.com/759811/38046244-c9806f0a-3284-11e8-8788-509912ec79c2.gif" target="_blank" rel="nofollow"><img src="https://user-images.githubusercontent.com/759811/38046244-c9806f0a-3284-11e8-8788-509912ec79c2.gif" alt="Screen recording on 2018-03-28 at 12:37:23" style="max-width:100%;"></a></p>
+<h2>
+<a id="user-content-getting-startedentirely-without-leaving-your-browser" class="anchor" href="#getting-startedentirely-without-leaving-your-browser" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Getting Started—Entirely Without Leaving Your Browser!</h2>
+<p>This method does not require installing anything on your computer, and does not require any prior knowledge. It will allow you to launch a copy of this project in less than 5 minutes, that you can start modifying and learning from. (<em>Later, you can also edit and work on this project on your computer, of course.</em>)</p>
+<h3>
+<a id="user-content-step-1-create-your-own-copy-of-the-project" class="anchor" href="#step-1-create-your-own-copy-of-the-project" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Step 1: Create your own copy of the project</h3>
+<ol>
+<li>
+<p><a href="https://github.com/signup">Sign-up for a GitHub account</a>, if you don't already have one.</p>
+</li>
+<li>
+<p>Click <a href="https://github.com/jlumbroso/ynab-api-starter-kit/generate">here</a> to generate a repository from this template (you can read GitHub's documentation on what it means to <a href="https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template#creating-a-repository-from-a-template">create a repository from a template</a>).</p>
+</li>
+</ol>
+<p><strong>NOTE:</strong> In the following steps, we will assume the GitHub account you created has username <code>your-github-username</code> and that you have called your project <code>your-new-ynab-project</code>, but change these accordingly when following instructions.</p>
+<h3>
+<a id="user-content-step-2-obtain-an-oauth-client-id-so-the-app-can-access-the-ynab-api" class="anchor" href="#step-2-obtain-an-oauth-client-id-so-the-app-can-access-the-ynab-api" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Step 2: Obtain an OAuth Client ID so the app can access the YNAB API</h3>
+<p>OAuth is the framework through which YNAB can share access to a user's data safely, without requiring that user share their credentials.</p>
+<p>Every YNAB app requires their own OAuth Application credentials.</p>
+<ol>
+<li>
+<p>You will need a YNAB account, and <a href="https://app.youneedabudget.com/users/authentication" rel="nofollow">to be logged in</a>.</p>
+</li>
+<li>
+<p>Go to the <a href="https://app.youneedabudget.com/settings/developer" rel="nofollow">YNAB Developer Settings</a>
+and click <a href="https://app.youneedabudget.com/oauth/applications/new" rel="nofollow">New Application</a>.</p>
+</li>
+<li>
+<p>The name, description, website URL and privacy policy URL are all information that will be provided to users for them to determine whether to trust your app (or not!); but these will not affect the operation of your app.</p>
+<p>The <em>Redirect URI(s)</em> parameter is important, as it controls where the user data can be sent. It is important to add a URL to the app, in this case:</p>
+<pre><code>https://&lt;your-github-username&gt;.github.io/&lt;your-new-ynab-project&gt;/
+</code></pre>
+</li>
+<li>
+<p>Check that you acknowledge the terms of service (after reading them!), and click "Save Application."</p>
+<p>You'll see your Client ID, Client Secret and Redirect URI(s) (you can <a href="https://api.youneedabudget.com/#outh-applications" rel="nofollow">read more about these concepts in YNAB's documentation</a>). For this project, we will be using the <em>Implicit Grant Flow</em> and will only need the Client ID.</p>
+</li>
+<li>
+<p>Copy and paste the Client ID and URL to your app into the <code>src/config.json</code> file of the repository (you can edit them on GitHub directly):</p>
+<div class="highlight highlight-source-json"><pre>{
+  <span class="pl-ent">"clientId"</span>: <span class="pl-s"><span class="pl-pds">"</span>&lt;your client ID&gt;<span class="pl-pds">"</span></span>,
+  <span class="pl-ent">"redirectUri"</span>: <span class="pl-s"><span class="pl-pds">"</span>https://your-github-username.github.io/your-new-ynab-project/<span class="pl-pds">"</span></span>
+}</pre></div>
+</li>
+</ol>
+<p><strong>NOTE:</strong> At this point, your app will only be able to access the YNAB API in <a href="https://api.youneedabudget.com/#oauth-restricted-mode" rel="nofollow">Restricted Mode</a>: This means you can access it an unlimited number of times, but other users will only be able to authenticate a combined total of 25 times, before you will need to write <a href="mailto:api@youneedabudget.com">api@youneedabudget.com</a> to reset your quota or get your app officially approved.</p>
+<h3>
+<a id="user-content-step-3-wait-for-github-actions-to-deploy-app-to-github-pages" class="anchor" href="#step-3-wait-for-github-actions-to-deploy-app-to-github-pages" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Step 3: Wait for GitHub Actions to deploy app to GitHub Pages</h3>
+<h2>
+<a id="user-content-code-architecture-of-the-app" class="anchor" href="#code-architecture-of-the-app" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Code Architecture of the App</h2>
+<p>Check out the <a href="https://api.youneedabudget.com/" rel="nofollow">YNAB API Documentation</a> for more information on how to use the YNAB API.</p>
+<p>This example uses <a href="https://vuejs.org/" rel="nofollow">Vue.js</a> but it is not required. Feel free
+to use whatever framework or libraries you prefer.</p>
+<h3>
+<a id="user-content-srcappvue" class="anchor" href="#srcappvue" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="https://github.com/ynab/ynab-api-starter-kit/blob/gh-pages/src/App.vue"><code>src/App.vue</code></a>
+</h3>
+<p>In the script portion of this page, you can see how to build an OAuth URI to
+obtain an access token for the API.</p>
+<p>It also has some examples on retrieving budgets and transactions.</p>
+<h3>
+<a id="user-content-srctransactionsvue" class="anchor" href="#srctransactionsvue" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="https://github.com/ynab/ynab-api-starter-kit/blob/gh-pages/src/components/Transactions.vue"><code>src/Transactions.vue</code></a>
+</h3>
+<p>This displays all the transactions when you've got them. It also has an example
+of using <code>utils.convertMilliUnitsToCurrencyAmount</code> to convert the milliunits that
+YNAB uses into the currency format of the budget.</p>
+<h2>
+<a id="user-content-local-development" class="anchor" href="#local-development" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Local Development</h2>
+<p>In order to modify and run/test this app locally, you will need to have:</p>
+<ul>
+<li>the <code>git</code> version control tool (read <a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git" rel="nofollow">installation instructions</a>);</li>
+<li>the most recent LTS (Long Term Support) version of Node.js, which will install the <code>npm</code> command (read <a href="https://nodejs.org/en/download/" rel="nofollow">installation instructions</a>).</li>
+</ul>
+<p>To create a local copy of this project, you must clone your repository:</p>
+<div class="highlight highlight-source-shell"><pre>$ git clone https://github.com/your-github-username/your-new-ynab-project/</pre></div>
+<p>Once that copy is created, you must install the necessary modules locally:</p>
+<div class="highlight highlight-source-shell"><pre>$ <span class="pl-c1">cd</span> your-new-ynab-project
+$ npm install</pre></div>
+<p>Now you have properly set up a local environment to work on your project.</p>
+<h3>
+<a id="user-content-launch-a-local-preview-with-npm-start" class="anchor" href="#launch-a-local-preview-with-npm-start" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Launch a local preview with <code>npm start</code>
+</h3>
+<p>Once your environment is configured, <code>npm start</code> will run the development server (defaults to <code>localhost:8080</code>) and watches for changes. Any modification to the source code will be updated immediately.</p>
+<p>This is useful to make a number of changes and preview them before committing the changes to the repository..</p>
+<h3>
+<a id="user-content-build-with-npm-run-build" class="anchor" href="#build-with-npm-run-build" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Build with <code>npm run build</code>
+</h3>
+<p>This command builds the production assets for deployment. This will build to <code>dist/build.js</code> which the <code>public/index.html</code> will load.</p>
+<p>It is not really a command that will be useful for beginners, but it is the command that GitHub runs every time a change is made.</p>
+<h2>
+<a id="user-content-alternative-methods" class="anchor" href="#alternative-methods" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Alternative Methods</h2>
+<p>The above method is the recommend method, because it keeps all the elements of your app in a repository, so you are not burdened by having a development environment on your computer.</p>
+<p>However there are more traditional methods of proceeding.</p>
+<h3>
+<a id="user-content-cloningforking-the-repository" class="anchor" href="#cloningforking-the-repository" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Cloning/forking the repository</h3>
+<p>If you do not want to make your own app, just want to preview this one:</p>
+<ol>
+<li>Use <code>git</code> to clone this repository: <code>git clone https://github.com/ynab/ynab-api-starter-kit</code>
+</li>
+<li>From within the folder, run <code>npm install</code>
+</li>
+<li>Then run <code>npm start</code> to launch the local server.</li>
+</ol>
+<h3>
+<a id="user-content-calling-our-create-app-from-scratch" class="anchor" href="#calling-our-create-app-from-scratch" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Calling our <code>create-app</code> from scratch</h3>
+<p>If you are an experienced developer, and just want to use this starter code for convenience, you may want to use our quick starter:</p>
+<ol>
+<li>Install <a href="https://nodejs.org/" rel="nofollow">Node.js</a>.</li>
+<li>In your terminal, run <code>npx ynab-api-starter-kit my-new-ynab-project</code>
+</li>
+</ol>
+<p>This will:</p>
+<ul>
+<li>Create a copy of this project on your computer.</li>
+<li>Install all the dependencies.</li>
+<li>Start up the server ready for development.</li>
+</ul>
+<h2>
+<a id="user-content-license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+<p>Copyright (c) 2019 You Need A Budget, LLC.</p>
+<p>Copyright (c) 2022 Jérémie Lumbroso.</p>
+<p>Licensed under the Apache-2.0 license.</p>
+<pre><code>
+</code></pre>
+
